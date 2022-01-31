@@ -35,7 +35,6 @@ let jsonData = [
       "Department": "ACCOUNT"
     }
   ]
-console.log(JSON.stringify(jsonData))
 
 export default {
     name: 'App',
@@ -64,8 +63,6 @@ export default {
       tempLink.href = csvURL;
       tempLink.setAttribute('download', 'download.csv');
       tempLink.click();
-
-
       this.unparsedResults = this.$papa.unparse(this.json_data, {
         delimiter: ","
       })
