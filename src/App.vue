@@ -21,20 +21,16 @@
 <script>
 import {ref} from 'vue'
 
-let jsonData = [
-    {
-      "Asset_Name": "Printer",
-      "Department": "HR"
-    },
-    {
-      "Asset_Name": "Monitor",
-      "Department": "IT"
-    },
-    {
-      "Asset_Name": "Barcode Scanner",
-      "Department": "ACCOUNT"
-    }
-  ]
+let jsonData = [{
+	"Asset_Name": "Printer",
+	"Department": "HR"
+}, {
+	"Asset_Name": "Monitor",
+	"Department": "IT"
+}, {
+	"Asset_Name": "Barcode Scanner",
+	"Department": "ACCOUNT"
+}]
 
 export default {
     name: 'App',
