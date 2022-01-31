@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import {ref} from 'vue'
 
 let jsonData = [{
 	"Asset_Name": "Printer",
@@ -35,7 +34,7 @@ let jsonData = [{
 export default {
     name: 'App',
     setup() {
-        let json_data = ref(jsonData);
+        let json_data = jsonData;
 
         return {
             json_data
