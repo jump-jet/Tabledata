@@ -1,26 +1,76 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Assest Name</th>
+          <th>Department</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="data in json_data" :key="data.Asset_Name">
+          <td>{{ data.Asset_Name }}</td>
+          <td>{{ data.Department }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <button @click="unparse">Download CSV</button>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import {ref} from 'vue'
+
+let jsonData = [
+    {
+      "Asset_Name": "Printer",
+      "Department": "HR"
+    },
+    {
+      "Asset_Name": "Monitor",
+      "Department": "IT"
+    },
+    {
+      "Asset_Name": "Barcode Scanner",
+      "Department": "ACCOUNT"
+    }
+  ]
+console.log(JSON.stringify(jsonData))
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+    name: 'App',
+    setup() {
+        let json_data = ref(jsonData);
+
+        return {
+            json_data
+        };
+    },
+    methods: {
+    unparse () {
+      let csv = this.$papa.unparse(jsonData);
+      let csvData = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+      let csvURL =  null;
+      if (navigator.msSaveBlob)
+      {
+          csvURL = navigator.msSaveBlob(csvData, 'download.csv');
+      }
+      else
+      {
+          csvURL = window.URL.createObjectURL(csvData);
+      }
+
+      var tempLink = document.createElement('a');
+      tempLink.href = csvURL;
+      tempLink.setAttribute('download', 'download.csv');
+      tempLink.click();
+
+
+      this.unparsedResults = this.$papa.unparse(this.json_data, {
+        delimiter: ","
+      })
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
